@@ -1,12 +1,8 @@
 from constants import (
     SCREEN_WIDTH,
     SCREEN_HEIGHT,
-
-    ASTEROID_KINDS,
-    ASTEROID_SPAWN_RATE,
-    ASTEROID_MAX_RADIUS,
-    ASTEROID_MIN_RADIUS
 )
+from player import Player
 import pygame
 
 
@@ -17,14 +13,23 @@ def main():
 
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.NOFRAME)
+    clock = pygame.time.Clock()
+    dt = 0
+
+    player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 
     while True:
+        dt = clock.tick(60) / 1000
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
 
         screen.fill('black')
+        player.update(dt)
+        player.draw(screen)
+
         pygame.display.flip()
 
 
